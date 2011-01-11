@@ -1,0 +1,78 @@
+<%- if current_user.blank? -%>
+  
+  <h2>Please log in to see your comments.</h2>
+  
+<%- elsif @comments.blank? -%>
+  
+  <h2>You have no comments</h2>
+  <% sidebar_items << capture do %>	  
+	<%= render :partial => '/mypage' %>
+	<% end %>
+  
+<%- else -%>
+
+  <% sidebar_items << capture do %>	  
+	<%= render :partial => '/mypage' %>
+	<% end %>
+	<% # END OF SIDEBAR CAPTURE -%>
+  
+	<% if params[:tag] %>
+	  Showing "<%= h params[:tag] %>" tagged items.
+	  Show <%= link_to 'all', bookmarks_path %>.
+	<% end %>
+
+
+<h1>Saved annotations: 1-<%= format_num(@comments.length) %> </h1>
+	<div id="userComments">
+<div class="tools index-tools">
+	<%= will_paginate(@comments) %>
+<div style="float: left" class="select-all">
+  <input type="checkbox" id="select_all" /><label for="select_all">select all</label>
+</div>
+<ul class="tools">
+<li id="tools-remove-header"><a href="/comments" onclick="var b = confirm('Are you sure you want to remove the selected annotations?'); if(b) { $('#documents :checked').each(function() { $.ajax({async: false, type: 'DELETE', url: '/comments/' + $(this).val() }); }); } else { return false; }">Remove</a></li>
+<li id="tools-export-header"><a href="#" onclick="$('#export form .id').remove(); $('.comment :checked').each(function() { $('#export form').append('<input class=\'id\' type=\'hidden\' name=\'id[]\' value=\'' + $(this).val() + '\' />');  });" class="ovLightboxLink" rel="#export">Export</a></li>
+</ul>
+</div>
+<div id="export" class="lightboxContent" style="display: none;">
+<%= render :partial => 'export' %>
+</div>
+    <% comments_group = @comments.sort_by(&:created_at).reverse.group_by(&:commentable_id) %>
+    <table id="documents" class="zebra">
+<thead>
+ <tr>
+  <th>Title</th>
+  <th>Date saved</th>
+ </tr>
+</thead>
+      <% comments_group.each do |key, comments| %>
+<% document = @documents[key]%>
+         <tr class="document"><td class="documentHeader">
+<div class="content">
+				<div class="thumbnail"><%= link_to '<img src="' + Blacklight.fedora_config[:url] + '/get/' + h(document.get(:id)) + '/sdef:THUMBNAIL/preview" width="54"/>', catalog_url(document.id) %></div>
+	<h3 class="index_title"><%= link_to_document document %></h3>
+	<div><%= document.get('description') %></div>
+	<div><%= "Tags: %s" % document.tags.join(', ') unless document.tags.blank?   %></div>
+</div>
+</td>
+<td><%= comments.last.created_at.strftime '%b %d, %Y' %></td>
+</tr>
+         <% comments.each do |c| %>
+    		<tr class="comment">
+    		  <td class="documentHeader">
+			<div class="content">
+  			<input type="hidden" value="<%= c.id %>" class="id" />
+			<h3 class="index_title"><%= link_to h(c.title), catalog_path(c.commentable_id) %></h3>
+<% unless c.segment.empty? %>
+<div class="comment-segment">[<%= c.segment %>]</div>
+<% end %>
+			<div class="comment-body"><%= h(c.comment)%></div>
+			</div>
+			</td>
+		  <td><%= h(c.created_at.strftime '%b %d, %Y') %></td>
+    		</tr>
+          <% end %>
+    	<% end %>
+  	</table>
+	</div>
+<% end %>

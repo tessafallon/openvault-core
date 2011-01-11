@@ -1,0 +1,14 @@
+<%
+require 'csv'
+
+str = ''
+
+CSV::Writer.generate(str) do |csv|
+  @bookmarks.each do |bookmark|
+    doc =  @documents[bookmark.document_id]
+    csv << [bookmark.id, bookmark.title, bookmark.created_at, doc.get('title'), doc.get('description'), url_for(:action => 'show', :controller => 'catalog', :id => doc.get('id'), :only_path => false)] 
+  end
+end
+
+%>
+<%= str %>

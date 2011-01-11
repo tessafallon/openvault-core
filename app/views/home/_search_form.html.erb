@@ -1,0 +1,10 @@
+<div id="search-simple">
+  <% form_tag catalog_index_path, :method => :get do %>
+    <h2 class="search">Search Archive</h2>
+    <%= text_field_tag :q, params[:q] %>
+    <%= search_as_hidden_fields(:omit_keys => [:q, :search_field, :qt, :page]) %>
+    <%= image_submit_tag "/images/search_submit.gif", :value => t(:search_submit), :class=>'submit' %>
+  <% end %>
+
+</div>
+

@@ -1,0 +1,9 @@
+<%# default partial to display solr document fields in catalog index view -%>
+  <% index_field_names.each do |solr_fname| -%>
+    <% if document.get solr_fname %>
+        <td><%= document.get(solr_fname) %></td>
+    <% else %>
+        <td>&nbsp;</td>
+    <% end -%>
+  <% end -%>
+

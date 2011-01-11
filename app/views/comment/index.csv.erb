@@ -1,0 +1,14 @@
+<%
+require 'csv'
+
+str = ''
+
+CSV::Writer.generate(str) do |csv|
+  @comments.each do |comment|
+    doc =  @documents[comment.commentable_id]
+    csv << [comment.id, comment.title, comment.comment, comment.created_at, doc.get('title'), doc.get('description'), url_for(:action => 'show', :controller => 'catalog', :id => comment.commentable_id, :only_path => false)] 
+  end
+end
+
+%>
+<%= str %>

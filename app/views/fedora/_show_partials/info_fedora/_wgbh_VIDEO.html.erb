@@ -1,0 +1,90 @@
+<div class="info-fedora_wgbh-video">
+<div id="video_<%= fedora_object.parameterize.gsub('-', '') %>" class="video <%= fedora_object.parameterize.gsub('-', '') %>">
+<img src="<%= fedora_url %>/get/<%= fedora_object %>/sdef:THUMBNAIL/preview" class="placeholder" alt=" "/>
+<img src="/images/play.png" class="play-button" alt="Play video"/>
+</div>                                          
+<div class="ui-clip-note ui-clip-note-annotate">To create an excerpt from the video, drag the start and end bars into place. Then add annotation title and text below.</div>
+<div class="ui-clip-note ui-clip-note-tag">To tag the video, add a tag, then click save.  Only one tag can be added
+at a time.</div>
+<script type="text/javascript" src="/javascripts/jquery.scrollTo.js"></script>
+<script type="text/javascript" src="/javascripts/flowplayer.min.js"></script>
+<script type="text/javascript" src="/javascripts/media_loader-flowplayer.js"></script>
+<script type="text/javascript" src="/javascripts/sync.js"></script>
+<script type="text/javascript" src="/javascripts/clip.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.timers.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.json.min.js"></script>
+<script type="text/javascript" src="/javascripts/slider-highlight.js"></script>
+ <script type="text/javascript" src="/javascripts/scrubbar.js"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" /><link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css" type="text/css" media="all" />
+        
+<script type="text/javascript">
+//<![CDATA[ 
+<%= fedora_object.parameterize.gsub('-', '') %>_loaded = false;
+        $('.<%= fedora_object.parameterize.gsub('-', '') %>').bind('click', function(e, options) {
+                if(<%= fedora_object.parameterize.gsub('-', '') %>_loaded) {
+                        return;
+                }
+                <%= fedora_object.parameterize.gsub('-', '') %>_loaded = true;
+                def = {'src': '<%= fedora_url%>/get/<%= fedora_object %>/Proxy', 'width': 320, 'height': 240, 'onMetaData': media_init };
+                if(typeof options != "undefined") {
+                        opt = $.extend(def, options);
+                } else {
+                        opt = def;
+                }
+                $('.<%= fedora_object.parameterize.gsub('-', '') %>').media(opt)
+        });
+
+        function media_init(obj, event) {
+                if($('.scrubbar', obj).children().length > 0) {
+                        return;
+                }
+                $('.playbutton').click(function() { $f('video').play(); });
+                $('.pausebutton').click(function() { $f('video').pause(); });
+                if($('.transcript').length > 0 && $('.transcript .para').filter(function() { return typeof $(this).attr('smil:begin') != 'undefined'}).length > 0 ) {
+                $(obj).append('<a class="sync" href="#" onclick="$(\'.transcript\').scrollTo(\'.active\', {duration: 500}); return false;">Sync</a>');
+                }
+                $(obj).clip();
+                $(obj).scrubbar({poll: function() { e = $f('video'); if(typeof e.getTime != 'function') { return 0; } return e.getTime(); } });
+                $('.transcript .para').sync($(obj), {poll: function() { e = $f('video'); if(typeof e.getTime != 'function') { return 0; } return e.getTime(); }, reverse: function(t, p) {
+                        e = $f('video');
+                        /*barcode = $(p).closest('.barcode').attr('id');
+                        if(barcode != '' && !$('.video:visible').hasClass(barcode)) {
+                                if($('.' + $(p).closest('.barcode').attr('id')).length > 0) {
+                                        el = $('embed', '.' + barcode);
+                                        if(el.length < 0) {
+                                                e.stop();
+                                                $('.video').hide();
+                                                $div = $('.' + barcode);
+                                                $div.show();
+                                                $div.trigger('click', {start: t});
+                                                return false;
+                                        }
+                                        e = el[0];
+                                }
+                        }*/
+
+                        e.seek(t);
+                } });
+
+                $('#comment_list > div').mouseover(function() { t = $('.metadata', this); if(t.length == 0 || t.val() == "") { return; } md = $.evalJSON($('.metadata', this).val()); $('.scrubbar').trigger('slider:highlight', {begin: $.media.convertTimestamp(md.clip_in), end: $.media.convertTimestamp(md.clip_out) }); }).mouseout(function() { $('.scrubbar').trigger('slider:highlight'); });
+        }
+$(function() {
+$('.transcript .para').each(function() {
+		if($(this).attr('smil:begin') == undefined) {
+			return;
+		}
+                $('<a class="sync" href="#" onclick="$(\'.<%= fedora_object.parameterize.gsub('-', '') %>\').trigger(\'click\', {start:$.media.convertTimestamp(\'' +  $(this).attr('smil:begin') + '\')}); return false;">[sync]</a> ').prependTo(this);
+        });             
+});             
+//]]> 
+</script>       
+<div class="user-generated-content">
+<%= render :partial => 'catalog/comment_control', :locals => {:document => document} %>
+<%= render :partial => 'catalog/tag_control', :locals => {:document => document} %>
+</div>          </div>
+<div class="fedora-object-children">
+<% ri = fedora_parts fedora_object %>
+<% ri.each do |r| %>
+<%= render_fedora_partial document, r.at('pid')['uri'], r.at('cmodel')['uri']  %>
+<% end %>
+</div>

@@ -1,0 +1,19 @@
+<%= error_messages_for :user %>
+
+<h1>Open Vault Registration</h1>
+
+<% form_for(@user, :url => user_path, :html => {:class => 'aligned-form'}) do |f| %>
+  <fieldset>
+    <div class="row"><%= f.label :login, 'User name' %> <%= f.text_field :login %></div> 
+    <div class="row"><%= f.label :password %> <%= f.password_field :password %></div>   
+    <div class="row"><%= f.label :password_confirmation, "Re-enter Password" %> <%= f.password_field :password_confirmation %></div> 
+    <div class="row"><%= f.label :email %> <%= f.text_field :email %></div>  
+    <div class="row"><%= f.label :first_name %> <%= f.text_field :first_name %></div> 
+    <div class="row"><%= f.label :last_name %> <%= f.text_field :last_name %></div> 
+    <div class="row optional"><%= f.label :zip_code, "ZIP/Postal Code" %> <%= f.text_field :zip_code %></div>  
+    <div class="row optional break"><%= f.label :country, "Country" %> <%= f.localized_country_select :country, [], :include_blank => 'Please choose...' %></div>  
+    <div class="row check"><%= f.check_box :email_updates%><%= f.label :email_updates, "Notify me of Open Vault updates and Media Library news" %></div>  
+    <div class="row check"><%= f.check_box :terms_and_conditions%><%= f.label :terms_and_conditions, "I accept the Open Vault <a href='/terms-and-conditions/' target='_blank'>Terms &amp; Conditions</a>" %></div>  
+    <div class="row submit"><%= f.submit 'Register', :class => 'raised' %></div>  
+   </fieldset>
+<% end %>

@@ -1,0 +1,61 @@
+<% 
+
+
+media = fedora_parts(@document.id).select { |r|  r.at('cmodel')['uri'] == 'info:fedora/wgbh:VIDEO' } 
+pid = media.first.at('pid')['uri'].split('/')[1] unless media.blank?
+%>
+
+<ul class="tools show-tools">
+    <li id="tools-save-header">
+<!-- <%= render :partial=>'bookmark_control', :locals=>{:document=>@document} %> -->
+<% if current_user and current_user.document_is_bookmarked? @document[:id] %>
+  <!-- <span><%= t :document_is_bookmarked, :folder => link_to(t(:bookmark_label), bookmarks_path) %></span> -->
+        <%= link_to 'Save', '', {:id => 'saveLink', :rel => '#save', :class => 'disabled ovLightboxLink', :title => "This record is saved.  Go to &lt;a href='/bookmarks'&gt;MyPage&lt;/a&gt; to view all saved records."}%>
+<% elsif current_user %>
+  <%- @bookmark ||= Bookmark.new -%>
+  <% remote_form_for(@bookmark, :after => 'show_overlay("#save"); $("#tools-save-header").addClass("disabled");') do |f| %>
+    <%= f.hidden_field(:document_id, :value => h(@document[:id])) %>
+    <%= f.hidden_field(:title, :value => h(@document[document_show_link_field])) %>
+    <%= f.submit t(:bookmark_this_item), :id => "user_submit_#{@document[:id]}" %>
+  <% end #form %>
+<% else %>
+        <%= link_to 'Save', '', {:id => 'saveLink', :rel => '#save', :class => 'disabled ovLightboxLink', :title => "An Open Vault account is required to save a record. Not an Open Vault member? Sign-up is quick and free. &lt;a href='/user/new'&gt;Register here.&lt;/a&gt;"}%>
+<% end %>
+    </li>
+    <li id="tools-share-header" class="addthis_toolbox addthis_default_style">
+<a href="http://addthis.com/bookmark.php?v=250&amp;username=xa-4b95274a733db53e" class="addthis_button_compact">Share</a>
+<script type="text/javascript">
+	var addthis_config = { ui_click: true }
+</script>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=interactivetech"></script>
+    </li>
+    <li id="tools-cite-header">
+       <%= link_to t(:cite_this), citation_catalog_path(@document.id), {:id => 'citeLink', :rel => '#citation', :class => 'ovLightboxLink'} %>
+    </li> 
+<% 
+bool = false
+begin 
+	fedora_check_rights pid, 'embed' unless pid.nil?
+	bool = true  unless pid.nil?
+rescue ODRL::Rights::InsufficientPrivileges
+end
+%>
+<% unless true ||  pid.nil? || !bool %>
+        <li id="tools-embed-header"><%= link_to 'Embed', citation_catalog_path(@document.id), {:id => 'embedLink', :rel => '#embed', :class => 'ovLightboxLink'} %></li>
+<% else %>
+<!-- <li class="disabled" id="tools-embed-header"><a>Embed</a></li> -->
+<% end %>
+  </ul>
+  <div class="lightboxContent" id="citation" style="display:none;">
+    <%= render :partial => 'citation', :locals => {:document => @document} %>
+  </div>
+  <div class="lightboxContent" id="save" style="display:none;">
+    <%= render :partial => 'save', :locals => {:document => @document} %>
+  </div>
+
+
+<% unless true || pid.nil? %>
+  <div class="lightboxContent" id="embed" style="display:none;">
+    <%= render :partial => 'embed', :locals => {:document => @document, :pid => pid} %>
+  </div>
+<% end %>

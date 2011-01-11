@@ -1,0 +1,16 @@
+<% if flash[:user_error] -%>
+<p class="error"><%= flash[:user_error] %></p>
+<% end%>
+<% if current_user %>
+ <span class="welcome"> Hello, <%= current_user.full_name || current_user.login %></span>
+  <%= link_to "Log Out", logout_path %>  <% if current_user.last_search_url %>
+    &#8226; <%= link_to('View your last search', catalog_index_path(current_user.last_search_url)) %><% end %> &#8226;
+	<%= link_to 'Profile', edit_user_path %> &#8226;
+    <%= link_to 'MyPage', comments_path, {:class => 'mypage-link' } %>
+<% else %>
+  <%= render :partial => 'user_sessions/login_form', :layout => false %>
+   <div class="user-util-actions">
+  <div>New members <%= link_to 'register here', '/user/new' %></div>
+  <div>Forgot login? <%= link_to 'Click here', '/password_resets/new' %></div>
+   </div>
+<% end %>

@@ -1,0 +1,36 @@
+<div id="browse">
+<h2>Browse</h2>
+    <%      
+     browse_field = 'dc.subject'
+     tree = browse_hierarchy browse_field
+     current = tree
+     arr = []
+     value = []
+     if !params[:f].nil? && !params[:f][browse_field].nil?
+       arr = params[:f][browse_field].first.split(' -- ')
+       val = arr.first
+     end
+            #    s = SolrDocument.search({:rows => 0, 'facet.field' => [browse_field]})
+            #    tree = s.facet_counts['facet_fields'][browse_field].each_slice(2).map.sort
+    %>
+<select>
+  <option value="">choose category</option>
+  <% tree.children.each do |tupl| %>
+    <option <%= 'selected="selected"' if(tupl.name == val) %> value="<%= h tupl.name.gsub('&', '%26') %>"><%= h tupl.name %> (<%= tupl.content %>)</option>
+  <% end %>
+</select>
+
+  <% until arr.empty? %>
+    <% value << arr.shift %>
+    <% current = current[value.join(' -- ')] %>
+    <% val = arr.first %>
+    <% next if current.nil? || current.children.length == 0 %>
+    <select>
+      <option value="">choose category</option>
+      <% current.children.each do |tupl| %>
+      <option <%= 'selected="selected"' if(tupl.name.split(' -- ').last == val) %> value="<%= h tupl.name.gsub('&', '%26') %>"><%= h tupl.name.split(' -- ').last %> (<%= tupl.content %>)</option>
+      <% end %>
+    </select>
+  <% end %>
+<div class="series"><a href="/series">Browse our Series and Collections &gt;</a></div>
+</div>

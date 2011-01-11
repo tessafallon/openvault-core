@@ -1,0 +1,13 @@
+
+<% if current_user %>
+<ul class="tools document-tools">
+        <li id="tools-annotate-header"><a>Annotate</a></li>
+        <li id="tools-tag-header"><a>Tag</a></li>
+</ul>
+<% else %>
+<ul class="tools document-tools">
+        <li class="disabled" id="tools-annotate-header"><a title="An Open Vault account is required to make an annotation. Not an Open Vault member? Sign-up is quick and 
+free. &lt;a href='/user/new'&gt;Register here.&lt;/a&gt;">Annotate</a></li>
+        <li class="disabled" id="tools-tag-header"><a title="An Open Vault account is required to tag a record. Not an Open Vault member? Sign-up is quick and free. &lt;a href='/user/new'&gt;Register here.&lt;/a&gt;">Tag</a></li>
+</ul>
+<% end %>

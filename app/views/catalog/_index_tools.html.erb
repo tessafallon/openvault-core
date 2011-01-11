@@ -1,0 +1,33 @@
+
+<% if current_user %>
+  <ul class="tools show-tools" style="float: left">
+<li class="select-all"><input type="checkbox" id="select_all"/> <label for="select_all">select all</label></li>
+<li id="tools-save-records"><a href="" onclick="bookmark_checked(); return false;">Save selected records</a></li>
+<li id="tools-save-search"><%= link_to_remote "Save this search", :url =>save_saved_search_path(session[:history].first), :method => :put, :after => "show_overlay('#save_search')" %>
+</li>
+</ul>
+  <div class="lightboxContent" id="save" style="display:none;">
+    <%= render :partial => 'save' %>
+  </div>
+  <div class="lightboxContent" id="save_no_records" style="display:none;">
+    <%= render :partial => 'save_no_records' %>
+  </div>
+
+<div class="lightboxContent" id="save_search" style="display:none;">
+<div class="lightboxTitle">Saved Search</div>
+Your search has been saved.
+<div class="action">
+<a href="/saved_searches" class="raised">Visit MyPage</a>
+<a class="close">Close</a>
+</div>
+
+</div>
+<% else %>
+  <ul class="tools show-tools" style="float: left">
+  <li class="select-all"><input type="checkbox" id="select_all"/> <label for="select_all">select all</label></li>
+<li class="disabled" id="tools-save-records"><a href="#" title="An Open Vault account is required to save a record. Not an Open Vault member? Sign-up is quick and free. &lt;a href='/user/new'&gt;Register here.&lt;/a&gt;">Save selected records</a></li>
+<li class="disabled" id="tools-save-search"><a href="#" title="An Open Vault account is required to save this search. Not an Open Vault member? Sign-up is quick and free. &lt;a href='/user/new'&gt;Register here.&lt;/a&gt;">Save this search</a></li>
+
+</ul>
+
+<% end %>

@@ -1,0 +1,4 @@
+xml.html '<object width="320" height="240" data="http://openvault.wgbh.org/swf/flowplayer-3.1.5.swf" type="application/x-shockwave-flash"><param name="movie" value="http://openvault.wgbh.org/swf/flowplayer-3.1.5.swf" /><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="flashvars" value=\'config={"clip":{"url":"http://openvault.wgbh.org/fedora/get/' + fedora_object + '/Proxy","autoPlay":true,"autoBuffering":true,"provider":"lighttpd"},"plugins":{"lighttpd":{"url":"http://openvault.wgbh.org/swf/flowplayer.pseudostreaming-3.1.3.swf"},"controls":null},"playlist":[{"url":"http://openvault.wgbh.org/fedora/get/' + fedora_object + '/Proxy","autoPlay":true,"autoBuffering":true,"provider":"lighttpd"}]}\' /></object>'
+xml.url fedora_url + "/get/" + fedora_object + "/Proxy"
+xml.width 320
+xml.height 240

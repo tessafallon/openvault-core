@@ -1,0 +1,62 @@
+
+<div id="highlights">
+<h2>Highlights</h2>
+<ul>
+</ul>
+</div>
+<div id="documents" class="gallery">
+<div id="mosaic">
+<%
+require 'csv'
+conf = CSV.read('config/home.csv')
+list = get_solr_documents_by_ids conf.flatten
+@documents = {}
+list.each { |x| @documents[x.get(:id)] = x }
+
+i = 1
+x = 0
+y = 0
+h = 45
+w = 60
+%>
+<% conf.each do |row| %>
+<% x = 0 %>
+<div class="mosaic-row mosaic-row-<%=i%>">
+<% row.each do |j| 
+%>
+<div class="document">
+<!-- !!! <%= j unless @documents[j] or j.blank?  %>-->
+<% if @documents[j] %>
+<% document = @documents[j] %>
+<div class="thumbnail">
+<%# link_to_document document, :label=> '<img src="' + Blacklight.fedora_config[:url] + '/get/' + h(document.get(:id)) + '/sdef:THUMBNAIL/thumbnail" width="54"/>' %>
+<%= link_to '<div class="img" style="background: transparent url(/mosaic.jpg) -' + (x * w).to_s + 'px -' + (y * h).to_s + 'px no-repeat; width: 54px; height: 41px; text-indent: -9999px;">' + document.get(:title) + '</div>', catalog_path(document.id) %>
+</div>
+<%= render :partial => 'popup', :locals => { :document => document} %>
+<% end %>
+</div>
+<% x += 1 %>
+<% end %>
+</div>
+<% y += 1 %>
+<%
+i += 1
+%>
+<% end%>
+<%= render :partial => 'search_form' %>
+</div>
+</div>
+<div id="content">
+<%= render :partial=>'browse' %>
+<div id="support">
+</div>
+
+<p></p>
+television and radio station WGBH. The ever-expanding site contains video,
+audio, images, searchable transcripts, and resource management tools, all
+of which are available for individual and classroom learning.</p>
+
+<ul class="links">
+<%= render :partial => 'links' %>
+</ul>
+</div>

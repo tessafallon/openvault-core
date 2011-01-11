@@ -1,0 +1,54 @@
+<img class="signature" src="/media/collections/wpna_i.jpg" />
+<h1>War and Peace in the Nuclear Age</h1>
+<p class="about"><i>War and Peace in the Nuclear Age</i>, first broadcast in 1989, is a thirteen-part PBS series on the origins and evolution of nuclear competition between the United States and the former Soviet Union. The series examined the rivalry for power and how it shaped the diplomacy, negotiation, ethical debates, and doctrine of deterrence that ran through the forty-year history of the nuclear age. This collection contains the full interviews and selected stock footage from the series.</p>
+
+<div class="funding">
+<h3>Major funding provided by the Institute of Museum and Library Services.</h3>
+<a href="http://www.imls.gov/index.shtm" target="_blank"><img src="/media/collections/logo_iml.png" /></a>
+</div>
+
+<div class="sidebar">
+<div class="highlights">
+<h3>Highlights</h3>
+<ul>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:f85f8643c29ace4e82ee839065914a98ec49777d' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:f36f7ee9ec411efe244dc2af9db61adf78631a75' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:7e5c4feaae8a405f0ebf60ae82760a495a3f7c84' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+</ul>
+</div>
+<div class="related">
+
+<h3>In this collection</h3>
+<ul>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Brdf.ancestor%5D%5B%5D=org.wgbh.mla:wpna">Search All Materials from this Collection</a></li>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Brdf.ancestor%5D%5B%5D=org.wgbh.mla:wpna&f%5Bdc.type%5D%5B%5D=Original+footage">Search All Interviews from this Collection</a></li>
+</ul>
+<h3>Related Links</h3>
+<ul>
+<li><a target="_blank" href="http://www.wilsoncenter.org/index.cfm?fuseaction=topics.home&topic_id=1409">Cold War International History Project</a></li>
+<li><a target="_blank" href="http://www.gwu.edu/~nsarchiv/index.html">The National Security Archive at George Washington University</a></li>
+</ul>
+</div>
+</div>
+<style>
+#doc4 {
+  background-color: #e6edf7;
+}
+
+.info-fedora-wgbh-collection #document .document h1, .info-fedora-wgbh-collection #document .sidebar h3 {
+  color: #0a547f;
+}
+
+.highlights h3 {
+	background-image: url(/media/collections/wapina_high.gif);
+}
+</style>

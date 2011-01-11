@@ -1,0 +1,117 @@
+.home #hd {
+	z-index: 100;
+}
+.home #hd-bg {
+	left: 0;
+}
+
+#highlights h2 {
+	visibility: hidden;
+}
+
+.home #bd {
+	z-index: 0;
+}
+
+#bd {
+	z-index: 1;
+}
+
+#selected-facets li {
+	list-style: none none none;
+}
+
+#facets ul li {
+	list-style: none none none;
+	padding-left: 15px;
+}
+
+#search-simple .submit {
+	margin-left: -15px;
+}
+
+#pagination_form * {
+	float: left;
+}
+
+#pagination_form .current {
+	margin-right: 5px;
+}
+
+#pagination_form .next_page {
+	margin-left: 5px;
+}
+
+.info-fedora_wgbh-video .user-generated-content {
+	display: none;
+}
+
+.ui-state-clip .info-fedora_wgbh-video .user-generated-content {
+	display: block;
+}
+
+.current-timestamp {
+ 	padding-right: 5px;
+	border-right: 1px solid #000;
+	margin-right: 5px;
+}
+
+.mypage-showonly input, .comment_public input {
+	border: none;
+}
+
+.blacklight-catalog-show .pagination {
+	height: 18px;
+}
+
+.blacklight-catalog-show .pagination-showing {
+	padding:0;
+}
+
+.blacklight-catalog-show .pagination * {
+	float: left;
+}
+
+#ft ul {
+	margin: 0;
+}
+
+#ft ul li {
+	border-right: 1px solid white;
+	padding-right: 5px;
+	margin-right: 5px;
+}
+
+#documents .hover {
+	z-index: 1000;
+}
+
+.info-fedora_wgbh-log .para {
+  position: static;
+}
+
+.fedora-object-wrapper .fedora-object-children .tab { 
+	display: none;
+}
+
+.user-util-links .error {
+	left: 0;
+}
+
+#search-simple input {
+	vertical-align: top;
+}
+
+.citations p {
+	left: 0;
+}
+
+.tools-container {
+	zoom: 1;
+	z-index: 1;
+	position: relative;
+}
+
+#tools-save-header .new_bookmark INPUT[type='submit'] {
+	background-position: 2px 0;
+}

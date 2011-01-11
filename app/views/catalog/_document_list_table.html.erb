@@ -1,0 +1,51 @@
+<table id="documents">
+ <thead>
+<tr title="Records sorted by relevance. Use Narrow to refine.">
+<th class="title">Title</th>
+<th class="type">Media</th>
+  <% index_field_names.each do |solr_fname| -%>
+<th class="<%= solr_fname.parameterize %>"><%= h index_field_labels[solr_fname]%></th>
+<% end -%>
+</tr>
+</thead>
+  <% # loop thru each doc -%>
+  <% @response.docs.each_with_index do |document,counter| %>
+
+    <% # container for a single doc -%>
+    <tr class="document">
+
+      <% # header bar for doc items in index view -%>
+      <td class="documentHeader yui-g">
+
+        <% # list controls for items/docs -%>
+
+        <% # main title container for doc partial view -%>
+
+          <div class="content">
+<div class="thumbnail"><%= link_to '<img src="' + Blacklight.fedora_config[:url] + '/get/' + h(document.get(:id)) + '/sdef:THUMBNAIL/thumbnail" width="54" alt=" " />', catalog_url(document.id) %></div>
+
+<h3 class="index_title"><span class="counter"><%= counter + 1 + @response.params[:start].to_i %>.</span> <%= link_to_document document, :label=>document_show_link_field, :counter => (counter + 1 + @response.params[:start].to_i) %> <%= "(Video Excerpt)" if document.get('dc.type') == 'Original footage - excerpt' and document.has?('rdf.child.hasModel') and document.get('rdf.child.hasModel', {:sep => nil}).member?('info:fedora/wgbh:VIDEO') %></h3>
+        <div><%= truncate(document.get('description').gsub(/<resource_link.*<\/resource_link>/, ''), :length => 300) if document.get('description')%></div>
+        </div>
+<% unless current_user.nil? || !(current_user.email == 'jeffrey_elias@wgbh.org')  %>
+<a href="http://openvault2.wgbh.org/editor/pbcore/ov2.html?src=http://openvault2.wgbh.org/fedora/get/<%=document.get('id') %>/PBCore&amp;pid=<%= document.get('id') %>">Edit</a>
+<% end %>
+        <div class="yui-u documentFunctions">
+          <%= render :partial=>'bookmark_control', :locals=>{:document=>document} %>
+        </div>
+	<div  class="viz">
+	<%= link_to '<img title="View Relationship Map BETA" src="/images/viz.png" />', {:controller => 'viz', :action => 'show', :id => document.id}, :target => '_blank' %>
+	</div>
+
+<input type="hidden" class="id" value="<%= h document.id %>" />
+
+</td>
+<td class="media">
+<%= document.get('rdf.child.hasModel', {:sep => nil}).uniq.sort.map { |e| '<img title="' + ts(e) + '" src="/images/' + e.parameterize + '_sm.gif" />' }.join(' ') if document.has?('rdf.child.hasModel') %>
+</td>
+      <% # main container for doc partial view -%>
+        <%= render :partial=>"catalog/_index_partials/table", :locals=>{:document=>document} %>
+    </tr>
+
+  <% end %>
+</table>

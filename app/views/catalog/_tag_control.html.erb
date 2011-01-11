@@ -1,0 +1,15 @@
+<% if current_user %>
+  <%- @tag ||= Tag.new -%>
+    <% form_remote_for(@tag, {:after => 'hide_ugc_forms();'}) do |f| %>
+            <h2>Tag</h2>
+	<p class="lightboxCaption">Suggested tags are from the Library of Congress Subject Headings.</p>
+		        <div class="row">
+			                <%= f.label :name %>
+					                <%= f.text_field :name %>                <div class="autocomplete" id="tag_suggest"></div>        </div>    <%= f.hidden_field(:document_id, :value => h(document[:id])) %>        <div class="action">    <%= f.submit 'SAVE', :id => "user_comment_submit_#{document[:id]}" %>                <a class="close">Cancel</a>        </div><script type="text/javascript" src="/javascripts/jquery.autocomplete.js"></script><link href="/stylesheets/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+    </script>
+  <% end #form %>
+
+
+<% else %>
+<% end %>

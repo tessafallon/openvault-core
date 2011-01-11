@@ -1,0 +1,70 @@
+<%
+begin
+require 'xml/xslt'
+ xslt = XML::XSLT.new()
+   xslt.xml = open(Blacklight.fedora_config[:url] + "/get/#{fedora_object}/File").read
+   xslt.xsl = open("public/xslt/tei2timedtranscript.xsl").read %> 
+<a class="tab tab-active" href="" onclick="$(this).siblings('div').hide(); $(this).siblings('.tab-active').removeClass('.tab-active'); $(this).next().show(); $(this).addClass('tab-active'); return false;">Transcript</a>
+   <div class="info-fedora_wgbh-log <%= fedora_object.gsub(':', '_') %> content text" style="height: 300px; overflow-y: hidden;">   
+   <div class="actions">          
+   <ul class="tools">         
+   <li id="tools-print-header">
+   <%= link_to 'Print Transcript', print_transcript_path(fedora_object), :target => '_new' %>
+</li>
+   </ul>               
+   
+   <div class="transcript-search">   
+	<div class="transcript-search-feedback"></div>
+	<form onsubmit="search_transcript($(this), $(this).closest('.actions').next(), $('.search-string', this).val()); return false;">
+   <input class="search-string" type="text" title="Search transcript:"/>
+   <input type="image" class="submit" value="Search" src="/images/search_submit.gif" alt="Search transcript" />
+	</form>
+   </div>              
+   </div> 
+   
+   <%= xslt.serve() %>
+ 
+ </div>
+<script type="text/javascript" src="/javascripts/ui/ui.resizable.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.highlight.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+        $(function() {
+            $(".<%= fedora_object.gsub(':', '_') %>").find("strong + div").each(function(i, e) { $(e).prepend($(e).prev().append(" ")); });
+            $(".<%= fedora_object.gsub(':', '_') %> .para").find("strong + a.sync").each(function(i, e) { $(e).after($(e).prev().append(" ")); });
+            $('.<%= fedora_object.gsub(':', '_') %>').resizable({ distance: 15, handles: 's'});
+        });
+function highlight(btn, doc, term) {
+        if(btn.val() != term) {
+                doc.unhighlight();
+                doc.highlight(term);
+                btn.val(term);
+        }
+
+	$('.tei-metadata .highlight').each(function() { 
+		$('.tei-name-' + $(this).closest('div').attr('id'), doc).addClass('highlight');
+	}).removeClass('highlight');
+	
+
+        s = $('.highlight', '.<%= fedora_object.gsub(':', '_') %>');
+        idx = s.index($('.highlight.current', '.<%= fedora_object.gsub(':', '_') %>')) + 1;
+        if(s.length <= idx) {
+                idx = 0;
+        }
+        $('.highlight.current', '.<%= fedora_object.gsub(':', '_') %>').removeClass('current');
+        e = s.eq(idx).addClass('current');
+        $('.<%= fedora_object.gsub(':', '_') %> .transcript').scrollTo(e);
+}
+//]]> 
+</script>
+<%
+rescue => e
+%>
+<%= "An error occurred: "+$! %>
+<%= fedora_object %>
+<div style="display: none;">
+<%= e.backtrace %>
+</div>
+<%
+end
+%>

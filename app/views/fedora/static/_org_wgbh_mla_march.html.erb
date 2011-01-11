@@ -1,0 +1,57 @@
+<img class="signature" src="/media/collections/mow_i.jpg" />
+<h1>March on Washington</h1>
+<p class="about">The 1963 March on Washington for Jobs and Freedom featured an estimated 250,000 peaceful demonstrators walking from the Washington Monument to the Lincoln Memorial to hear a political call to arms for economic equality and civil rights for African Americans. Credited with being the final impetus to the passing of the 1964 Civil Rights Act, the event famously ended with Martin Luther King Jr.'s historic "I have a dream" speech.</p>
+
+<div class="funding">
+<h3>This project is supported in part by Save America’s Treasures through a partnership between the National Endowment for the Arts and the National Park Service, Department of the Interior</h3>
+<a target="_blank" href="http://www.nps.gov/history/hps/treasures/index.htm"><img style="border: 1px solid #999;" src="/media/collections/SAT.jpg" /></a>
+
+</div>
+
+<div class="sidebar">
+<div class="highlights">
+<h3>Highlights</h3>
+<ul>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:fc3485c782a859380a399607cf5a6b9a449bc158' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:44bf881e597213dc09db92197cce20b78344612e' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document =>  document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:3ed0b7ef67043548d88a53f41dfca388fea4cc5e' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+</ul>
+
+</div>
+<div class="related">
+
+<h3>In this collection</h3>
+<ul>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Bpbcore.title_Series%5D%5B%5D=March+on+Washington">Search All Materials from this Collection</a></li>
+</ul>
+<h3>Related Links</h3>
+<ul>
+<li><a target="_blank" href="http://www.pbs.org/wgbh/amex/eyesontheprize/">American Experience: <i>Eyes on the Prize</i></a></li>
+<li><a target="_blank" href="http://library.wustl.edu/units/spec/filmandmedia/">Washington University Film and Media Archive</a></li>
+<li><a target="_blank" href="http://crdl.usg.edu/">Civil Rights Digital Library</a></li>
+<li><a target="_blank" href="http://www.teachersdomain.org/special/civil/">Teachers' Domain: Civil Rights</a></li>
+</ul>
+</div>
+</div>
+<style>
+#doc4 {
+  background-color: #d4d8d0;
+}
+
+.info-fedora-wgbh-collection #document .document h1, .info-fedora-wgbh-collection #document .sidebar h3 {
+  color: #988c3a;
+}
+
+.highlights h3 {
+	background-image: url(/media/collections/mow_high.png);
+}
+</style>

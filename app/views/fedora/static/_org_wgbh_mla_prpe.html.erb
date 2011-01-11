@@ -1,0 +1,51 @@
+<img class="signature" src="/media/collections/pp_i.jpg" />
+<h1>Press and the People</h1>
+<p class="about">Groundbreaking in concept, Press and the People was one of the first series to explore how newspaper and television reporters covered key events in the 1950s, and how that shaped public opinion and knowledge on issues such as the nuclear weapons, the Berlin Crisis and secrecy in the government. Hosted by Louis Lyons, the first television newscaster at WGBH, Press and the People brought together esteemed journalists such as Edward R. Murrow, Eric Sevareid and Martin Agronsky to discuss their role in the creation and dissemination of current events. </p>
+
+<div class="sidebar">
+<div class="highlights">
+<h3>Highlights</h3>
+<ul>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:9e3aec4b58a32e284b755c6f2318f47b92db3d08' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:415824106211cc8a96838c0dae73a5927caf4565' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document =>  document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:e596831e08608a34024285a5441dfb979959835a' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+</ul>
+
+</div>
+<div class="related">
+
+<h3>In this collection</h3>
+<ul>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Brdf.ancestor%5D%5B%5D=org.wgbh.mla:prpe">Search All Materials from this Collection</a></li>
+</ul>
+<h3>Related Links</h3>
+<ul>
+<li><a target="_blank" href="http://www.library.umass.edu/spcoll/umarmot/?p=281">Louis Martin Lyons Papers</a></li>
+<li><a target="_blank" href="https://wikis.uit.tufts.edu/confluence/display/MurrowCollection/Home">Edward R. Murrow Collection</a></li>
+<li><a target="_blank" href="http://www.newseum.org/">Newseum</a></li>
+</ul>
+</div>
+</div>
+<style>
+#doc4 {
+  background-color: #d4d5d4;
+}
+
+.info-fedora-wgbh-collection #document .document h1, .info-fedora-wgbh-collection #document .sidebar h3 {
+  color: #40453d;
+}
+
+.highlights h3 {
+        background-image: url(/media/collections/sb_high.gif);
+
+}
+</style>

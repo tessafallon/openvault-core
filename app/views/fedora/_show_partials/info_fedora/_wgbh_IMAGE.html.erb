@@ -1,0 +1,31 @@
+<div class="info-fedora_wgbh-image">
+<img width="600" src="<%=Blacklight.fedora_config[:url]%>/get/<%= fedora_object %>/File">
+<div class="ui-clip-note ui-clip-note-annotate">To annotate part of the image, select and drag using your mouse.</div>
+<%= javascript_include_tag  'jquery.imgareaselect.pack' %>
+<%= javascript_include_tag  'jquery.json.min' %>
+    <%= stylesheet_link_tag 'imgareaselect-default.css', :media=>'all' %>
+<input type="hidden" class="crop" name="crop" />
+<script type="text/javascript">
+var ias;
+$(function() {
+  ias = $('.info-fedora_wgbh-image img').imgAreaSelect({ 
+    instance: true,
+    handles: true,
+    disable: true,
+    fade: 0.3,
+    onSelectEnd: function(img, selection) { $('input[name="comment[metadata]"]').val($.toJSON(selection)); }
+  });
+  $('.document').bind('openvault:state-change', function() { if($(this).hasClass('ui-state-clip')) { ias.setOptions({'enable': true}); } else { ias.setOptions({'disable': true, 'hide': true}); } });
+
+	$('#comment_list .comment').bind('mouseenter', function() { 
+		if(typeof $(this).attr('smil:coords') == 'undefined') { return; } 
+		arr = $(this).attr('smil:coords').split(","); 
+		ias.setOptions({'enable': true, 'show': true}); 
+		ias.setSelection(arr[0], arr[1], arr[2], arr[3]); 
+		ias.update(); 
+	}).bind('mouseleave', function() { 
+			ias.setOptions({'disable': true, 'hide': true});  
+		});
+	});
+</script>
+</div>

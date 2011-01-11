@@ -1,0 +1,23 @@
+<div id="comment_list">
+<% public, private = document.comments.sort_by { |e| e.created_at }.reverse.select { |x| (!current_user.nil? && x.user_id == current_user.id) or x.public == true }.partition { |x| x.public } %>
+<div>
+<h3 class="toggler">Private (<%= private.length %>)</h3>
+<%= render :partial => 'comment_paginator' if private.length > 5 %>
+<div class="comments">
+<%= render :partial => 'comment', :collection => private.flatten %>
+</div>
+<% if current_user %>
+<%= "<div class='notice'>There are currently no private annotations</div>" if private.flatten.length == 0 %>
+<% else %>        
+<div class="notice">An Open Vault account is required to save private annotations. Sign-up is quick and free. <%= link_to 'Register here.', new_user_path %></div>
+<% end %>       
+</div>          
+<div>   
+<h3 class="toggler">Public (<%= public.length %>)</h3>
+<%= render :partial => 'comment_paginator' if public.length > 5 %>
+<div class="comments">
+<%= render :partial => 'comment', :collection => public.flatten %>
+</div>
+<%= "<div class='notice'>There are currently no public annotations</div>" if public.flatten.length == 0 %></div>  
+</div>
+

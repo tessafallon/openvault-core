@@ -1,0 +1,46 @@
+<%- if current_user.blank? -%>
+  
+  <h2>Please log in to see your saved searches.</h2>
+  
+<%- elsif @searches.blank? -%>
+  
+  <h2>You have no saved searches</h2>
+  <% sidebar_items << capture do %>	  
+	<%= render :partial => '/mypage' %>
+	<% end %>
+  
+<%- else -%>
+  <% sidebar_items << capture do %>	  
+	<%= render :partial => '/mypage' %>
+	<% end %>
+<h1>Saved searches: 1-<%= format_num(@searches.length) %> </h1>
+<div class="tools index-tools">
+<div style="float: left" class="select-all">
+  <input type="checkbox" id="select_all" /><label for="select_all">select all</label>
+</div>
+<ul class="tools">
+<li id="tools-remove-header"><a href="/saved_searches" onclick="var b = confirm('Are you sure you want to remove the selected searches?'); if(b) { $('#documents :checked').each(function() { $.ajax({async: false, type: 'DELETE', url: '/saved_searches/' + $(this).val() }); }); } else { return false; }">Remove</a></li>
+</ul>
+</div>
+  <table id="documents" class="zebra">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Dave saved</th>
+    </tr>
+  </thead>
+  <%- @searches.each do |search| -%>
+    <tr>
+      <td class="documentHeader">
+	<div class="content"><h3 class="index_title"><%= link_to_previous_search(search.query_params) %></h3>
+				<input type="hidden" value="<%= search.id %>" class="id" />
+</div></td>
+     <!-- <td><%= link_to "delete", saved_search_path(search), :method => :delete, :confirm => "Delete item?" %></td>-->
+		  <td><%= h(search.created_at.strftime '%b %d, %Y') %></td>
+      
+    </tr>
+  <%- end -%>
+  </table>
+
+<%- end -%>
+

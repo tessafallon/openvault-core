@@ -1,0 +1,121 @@
+from javax.servlet.http import HttpServlet
+from elementtree import ElementTree
+import urllib2
+from urllib import urlencode
+
+datastream_store_base = '/wgbh/http/openvault2/fedora/data/datastreams'
+
+fedora_http = 'http://openvault2.wgbh.org/fedora/'
+username='fedoraAdmin'
+password='fedora'
+
+passman = urllib2.HTTPPasswordMgrWithDefaultRealm()
+
+passman.add_password(None, fedora_http, username, password)
+
+authhandler = urllib2.HTTPBasicAuthHandler(passman)
+opener = urllib2.build_opener(authhandler)
+
+urllib2.install_opener(opener)
+
+class Thumbnail (HttpServlet):
+	def doGet(self, request, response):
+		self.doPost(request, response)
+
+	def getContent(self, url):
+		try:
+			x = urllib2.urlopen(url)
+			s = x.read()
+			x.close()
+			return s
+		except urllib2.HTTPError, e:
+			e.close()
+			raise e
+
+	def doPID(self, pid, size):
+		try:
+			content = self.getContent('http://openvault2.wgbh.org/fedora/objects/' + pid + '/datastreams?format=xml')
+			e = ElementTree.fromstring(content)
+			
+			for i in e.findall('.//datastream[@dsid="__tn_' + size + '"]'):	
+				try:
+					return self.getContent('http://openvault2.wgbh.org/fedora/get/' + pid + '/__tn_' + size)
+				except urllib2.HTTPError:
+					print ""
+		
+			for i in e.findall('.//datastream[@dsid="' + size.capitalize() + '"]'):
+				try:
+					return self.getContent('http://openvault2.wgbh.org/fedora/get/' + pid + '/' + size.capitalize())
+				except urllib2.HTTPError:
+					print ""
+	
+			for i in e.findall('.//datastream[@dsid="Thumbnail"]'):
+				try:
+					return self.getContent('http://openvault2.wgbh.org/fedora/get/' + pid + '/Thumbnail')
+				except urllib2.HTTPError:
+					print ""
+		except urllib2.HTTPError:
+			print ""
+		return None
+
+	def doPost(self, request, response):
+		toClient = response.getWriter()
+		response.setContentType('image/jpeg')
+#		response.setContentType('text/plain')
+		pid = request.getParameterValues('pid')[0]
+		size = request.getParameterValues('size')[0] # thumbnail, small, medium, full, essence
+		
+		try: 
+			content = self.getContent('http://openvault2.wgbh.org/fedora/objects/' + pid + '/datastreams?format=xml')
+			e = ElementTree.fromstring(content)
+			
+			for i in e.findall('.//datastream[@dsid="__tn_' + size + '"]'):
+				toClient.print(self.getContent('http://openvault2.wgbh.org/fedora/get/' + pid + '/__tn_' + size))	
+				return
+	
+		
+			for i in e.findall('.//datastream[@dsid="Thumbnail"]'):
+				toClient.print(self.getContent('http://openvault2.wgbh.org/fedora/get/' + pid + '/Thumbnail'))	
+				return
+		except urllib2.HTTPError:
+			print ""
+		
+		
+		data = dict(dt="on", format="CSV", lang="itql", limit=1000, type="tuples", query='select $pid from <#ri> where (<info:fedora/' + pid + '> <fedora-rels-ext:hasThumbnail> $pid) or ($pid <fedora-rels-ext:isThumbnailOf> <info:fedora/' + pid + '>) or (<info:fedora/' + pid + '> <fedora-rels-ext:isPartOf> $parent and $parent <fedora-rels-ext:hasThumbnail> $pid or $pid <fedora-rels-ext:isThumbnailOf> $parent) or (<info:fedora/' + pid + '> <fedora-rels-ext:hasPart> $child and $child <fedora-rels-ext:hasThumbnail> $pid or $pid <fedora-rels-ext:isThumbnailOf> $child)')
+		content = self.getContent('http://openvault2.wgbh.org/fedora/risearch?%s' % urlencode(data))
+		if(len(content.split("\n")) > 2):
+			for fqid in content.split("\n"):	
+				if(fqid == '"pid"' or len(fqid) == 0):
+					continue
+				tn_pid = fqid.split('/').pop(1)
+				str = self.doPID(tn_pid, size)
+				if(str):
+					toClient.print(str)
+					return
+		
+		data = dict(dt="on", format="CSV", lang="itql", limit=1000, type="tuples", query='select $pid from <#ri> where $pid <fedora-rels-ext:isPartOf> <info:fedora/' + pid + '>')
+		
+		content = self.getContent('http://openvault2.wgbh.org/fedora/risearch?%s' % urlencode(data))
+		
+		if(len(content.split("\n")) > 2):
+			for fqid in content.split("\n"):	
+				if(fqid == '"pid"' or len(fqid) == 0):
+					continue
+				tn_pid = fqid.split('/').pop(1)
+				str = self.doPID(tn_pid, size)
+				if(str):
+					toClient.print(str)
+					return
+					
+			
+		#default?
+	
+		if size in ['preview', 'thumbnail']:
+			toClient.print(self.getContent('http://openvault2.wgbh.org/images/no-image-available_thumb.jpg'))	
+			return
+
+		if size in ['medium', 'full', 'essence']:
+			toClient.print(self.getContent('http://openvault2.wgbh.org/images/no-image-available.jpg'))	
+			return
+		
+		#toClient.print(grab_frame(local_file_or_url(url), t))

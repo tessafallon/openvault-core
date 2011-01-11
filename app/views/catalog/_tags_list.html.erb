@@ -1,0 +1,10 @@
+<div id="tags_list">
+<% if document.tag_list.length ==0 %>
+<div class="notice">There are currently no tags</div>
+<% end %>
+<% tag_cloud document.tag_counts.sort_by(&:name), %w(css1 css2 css3 css4) do |tag, css_class| %>
+<%# link_to tag.name, { :action => :tag, :id => tag.name }, :class => css_class %>
+<span class="<%= css_class%>"><%=  tag.name %></span>
+  <% end unless document.tag_list.empty? %>
+  </div>
+

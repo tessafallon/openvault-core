@@ -1,0 +1,4 @@
+<%# default partial to display solr document fields in catalog index view -%>
+<div class="detail-overlay">
+<h3 class="index_title_overlay"> <%= link_to_document document, :label=>document_show_link_field %> <%= "(Video Excerpt)" if document.get('dc.type') == 'Original footage - excerpt' %></h3>
+</div>

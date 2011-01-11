@@ -1,0 +1,59 @@
+<img class="signature" src="/media/collections/ntw_i.jpg" />
+
+<h1>New Television Workshop</h1>
+<p class="about">The New Television Workshop at WGBH supported the creation and broadcast of experimental works by artists from 1974 to 1993. The New Television Workshop Collection was preserved, arranged, and described by the WGBH Media Library and Archives with support from the National Endowment for the Arts (Grant # A 96 - 019016). Materials in the collection include videos from the New Television Workshop, as well as early video arts works that pre-dated organization of the New Television Workshop and ancillary but related video art works produced by WGBH.</p>
+
+<div class="funding">
+<h3>Funding provided by the National Endowment for the Arts</h3>
+<a target="_blank" href="http://www.nea.gov/" target="_blank"><img style="border: 1px solid #999;" src="/media/collections/logo_nea.jpg" /></a>
+</div>
+
+<div class="sidebar">
+<div class="highlights">
+<h3>Highlights</h3>
+<ul>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:MLA000237' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:MLA000270' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document =>  document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:MLA000062' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+</ul>
+
+</div>
+<div class="related">
+<h3>In this collection</h3>
+<ul>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Brdf.ancestor%5D%5B%5D=org.wgbh.mla:ntw">Search All Materials from this Collection</a></li>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Bpbcore.title_Series%5D%5B%5D=Artist%27s+Showcase">Search all Artists's Showcase materials from this Collection </a></li>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Bpbcore.title_Series%5D%5B%5D=Frames+of+Reference">Search all Frames of Reference materials from this Collection </a></li>
+</ul>
+<h3>Related Links</h3>
+<ul>
+<li><a target="_blank" href="http://main.wgbh.org/wgbh/NTW/FA/index.html">New Television Workshop Finding Aid</a></li>
+<li><a target="_blank" href="http://main.wgbh.org/wgbh/NTW/ES/index.html">New Television Workshop Exhibit Space</a></li>
+<li><a target="_blank" href="http://forum-network.org/fn-search/lectures?keys=new%20television%20workshop">Learn about the influence of NTW on experimental art</a></li>
+</ul>
+
+</div>
+</div>
+
+<style>
+#doc4 {
+  background-color: #eedfdf;
+}
+
+.info-fedora-wgbh-collection #document .document h1, .info-fedora-wgbh-collection #document .sidebar h3 {
+  color: #330133;
+}
+
+.highlights h3 {
+	background-image: url(/media/collections/ntw_high.gif);
+}
+</style>

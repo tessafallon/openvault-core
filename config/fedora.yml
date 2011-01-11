@@ -1,0 +1,13 @@
+production:
+    url: http://localhost/fedora
+    internal_url: http://localhost:8180/fedora
+development:
+    url: http://localhost:8180/fedora
+    internal_url: http://localhost:8180/fedora
+    username: fedoraAdmin
+    password: fedoraAdmin
+test: &TEST
+    url: http://localhost:8180/fedora
+cucumber:
+    <<: *TEST
+

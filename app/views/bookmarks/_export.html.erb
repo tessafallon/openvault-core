@@ -1,0 +1,26 @@
+<form action="/bookmarks">
+  <div class="lightboxTitle">
+    Export
+  </div>
+  <p class="lightboxCaption">
+    Choose a format to export your work
+  </p>
+  <ul>
+    <!--<li><input type="radio" name="format" value="pdf" id="export_pdf" /><label for="export_pdf">PDF</label></li> -->
+    <li><input type="radio" name="format" value="csv" id="export_csv" /><label for="export_csv">CSV</label></li>
+    <!-- <li><input type="radio" name="format" value="bibliotek" id="export_bibliotek" /><label for="export_bibliotek">Bibliotek</label></li> -->
+    <li><input type="radio" name="format" value="txt" id="export_txt" /><label for="export_txt">Text file</label></li>
+  </ul>
+  <p class="lightboxCaption">
+    Choose a citation style
+  </p>
+  <ul>
+    <li><input type="radio" name="style" value="chicago" id="export_chicago" /><label for="export_chicago">Chicago</label></li>
+    <li><input type="radio" name="style" value="mla" id="export_mla" /><label for="export_mla">MLA</label></li>
+    <li><input type="radio" name="style" value="apa" id="export_apa" /><label for="export_apa">APA</label></li>
+  </ul>
+<div class="action">
+<input type="submit" class="raised" value="Export">
+<a class="close">Close</a>
+</div>
+</form>

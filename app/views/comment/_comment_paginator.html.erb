@@ -1,0 +1,34 @@
+<% id = UUID.generate.parameterize %>
+
+<div id="pagination-<%= id %>" class="pagination">
+<input class="pagination-showing" disabled="disabled" value="1-5" />
+<a href="" class="prev disabled" onclick="return false;">&lt;</a>
+<a href="" class="next disabled" onclick="return false;">&gt;</a>
+<a href="" class="view-all" onclick="return false;">View All</a>
+<div class="sort_by">
+<label>Sort By: </label>
+<select class="sort_by">
+  <option value=".comment-created-iso8601">Date</option>
+  <option value=".comment-user">Author</option>
+  <option value=".comment-title">Title</option>
+</select>
+</div>
+</div>
+
+<script type="text/javascript">
+$(function() {
+that = $('#pagination-<%= id %>');
+comments = $(that).siblings('.comments');
+/*if(comments.length > 5) {
+	$('.next-page', this).removeClass('disabled');
+	comments.hide();
+	comments.slice(0,5).show();	
+}*/
+$(comments).paginate({'pager': $('#pagination-<%= id %>'), 'callback': function(paginator) { 
+	firstItem = paginator.pg * paginator.options.itemsPerPage + 1;
+	lastItem = paginator.pg * paginator.options.itemsPerPage + paginator.element.children(':visible').length;
+	 $('.pagination-showing', that).val(firstItem + "-" + lastItem); } });
+});
+var p;
+</script>
+

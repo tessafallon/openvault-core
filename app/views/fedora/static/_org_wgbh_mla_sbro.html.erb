@@ -1,0 +1,62 @@
+<img class="signature" src="/media/collections/sb_i.gif" />
+
+<h1>Say Brother</h1>
+<p class="about"><i>Say Brother</i> is WGBH's longest-running public affairs television program by, for and about African Americans, now known as <i>Basic Black</i>.  In April 2000, the WGBH Media Library and Archives in Boston was awarded a National Endowment for the Humanities Archives and Special Collections Preservation and Access grant to arrange, describe, and reformat master <i>Say Brother</i> programs dating from 1968 to 1982 to keep the collection accessible.  WGBH welcomes you to explore this invaluable programming, whether performance, political commentary, or conversations with distinct voices from the African American community.</p>
+
+<div class="funding">
+<h3>Funding provided by the National Endowment for the Humanities</h3>
+</div>
+
+<div class="disclaimer">
+Any views, findings, conclusions or recommendations expressed in this web site do not necessarily represent those of the National Endowment for the Humanities.
+</div>
+
+<div class="sidebar">
+<div class="highlights">
+<h3>Highlights</h3>
+<ul>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:MLA001106' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:MLA000938' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document =>  document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:MLA001040' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+</ul>
+
+</div>
+<div class="related">
+
+<h3>In this collection</h3>
+<ul>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Brdf.ancestor%5D%5B%5D=org.wgbh.mla:sbro">Search All Materials from this Collection</a></li>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Brdf.ancestor%5D%5B%5D=org.wgbh.mla:sbro&f%5Bpbcore.subject%5D%5B%5D=Music--Performance">Search All Musical Performances from this Collection</a></li>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Brdf.ancestor%5D%5B%5D=org.wgbh.mla:sbro&f%5Bpbcore.subject%5D%5B%5D=African Americans--Civil rights">Search Civil Rights materials from this Collection</a></li>
+</ul>
+<h3>Related Links</h3>
+<ul>
+<li><a target="_blank" href="http://wgbh.org/basicblack">Basic Black Web Site</a></li>
+<li><a target="_blank" href="http://main.wgbh.org/saybrother/">Say Brother Finding Aid</a></li>
+<li><a target="_blank" href="http://main.wgbh.org/saybrother/history.html">A History of Say Brother</a></li>
+</ul>
+</div>
+</div>
+<style>
+#doc4 {
+  background-color: #ffc489;
+}
+
+.info-fedora-wgbh-collection #document .document h1, .info-fedora-wgbh-collection #document .sidebar h3 {
+  color: #fff;
+}
+
+.highlights h3 {
+	background-image: url(/media/collections/sb_high.gif);
+
+}
+</style>

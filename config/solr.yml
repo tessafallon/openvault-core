@@ -1,0 +1,10 @@
+production:
+    url: http://localhost:8180/solr/production
+development:
+    url: http://localhost:8180/solr/development
+staging:
+    url: http://127.0.0.1:8180/solr
+test: &TEST
+    url: http://127.0.0.1:8180/solr
+cucumber:
+    <<: *TEST

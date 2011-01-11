@@ -1,0 +1,24 @@
+<div id="browse">
+<h2>Browse</h2>
+<%
+	#values = browse_heirarchy
+                browse_field = 'dc.subject'
+                s = Blacklight.solr.find({:rows => 0, 'facet.field' => [browse_field]})
+		values = []
+                values = s.facet_counts['facet_fields'][browse_field].each_slice(2).map.sort if  s.facet_counts['facet_fields'][browse_field]
+    %>
+    <select>
+				<option value="">choose category</option>
+    <%
+	values.select { |x| x[0].scan(' -- ').length == 0 }.each { |y| %>
+		<option <%= 'selected="selected"' if !params[:f].nil? && !params[:f][browse_field].nil? && !params[:f][browse_field].first[y[0]].nil? %> value="<%= y[0] %>"><%= y[0] %> (<%= y[1] %>)</option>
+	<%		
+	}
+	%>
+	</select>
+	<%
+	
+	
+%>
+<div class="series"><a href="/series">Browse our Series and Collections &gt;</a></div>
+</div>

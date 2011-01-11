@@ -1,0 +1,3 @@
+<%= link_to_document document, :label=> ('<img alt=" " src="' + Blacklight.fedora_config[:url] + '/get/' + h(document.get(:id)) + '/sdef:THUMBNAIL/vertical" width="56" height="73"/>').html_safe! %>
+<h4><%= link_to_document document %></h4>
+        <p><%= truncate(document.get('description').gsub(/<resource_link.*<\/resource_link>/, ''), 100) if document.get('description')%></p>

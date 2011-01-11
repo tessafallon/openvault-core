@@ -1,0 +1,7 @@
+solr/data/*
+solr/*/data/*
+logs/*.log
+derby.log
+fedora/*/data/2*
+fedora/default/data/activemq-data/localhost
+fedora/default/data/resourceIndex

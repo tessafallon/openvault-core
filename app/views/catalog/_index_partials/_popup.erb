@@ -1,0 +1,19 @@
+<%# default partial to display solr document fields in catalog index view -%>
+<% if document.has? 'rdf.child.hasModel' %>
+<div>
+  <strong>Media:</strong>
+<%= document.get('rdf.child.hasModel', {:sep => nil}).select { |e| e =~ /wgbh/ }.uniq.sort.map { |e| ts(e) }.join(", ") %>
+</div>
+<% end %>
+
+<input type="hidden" class="id" value="<%= h document.id %>" />
+  <% index_field_names.each do |solr_fname| -%>
+    <% if document.get solr_fname %>
+ <div> 
+        <strong><%= h index_field_labels[solr_fname]%>: </strong>
+        <%= h document.get(solr_fname) %>
+</div>
+    <% end -%>
+  <% end -%>
+
+<br style="clear: both;" />

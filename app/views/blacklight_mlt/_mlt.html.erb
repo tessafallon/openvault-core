@@ -1,0 +1,5 @@
+<div class="mlt">
+<%= link_to '<img alt=" " src="' + Blacklight.fedora_config[:url] + '/get/' + h(object.get(:id)) + '/sdef:THUMBNAIL/thumbnail" width="54"/>', catalog_url(:id => object.id) %>
+<h4><%= link_to_document object %></h4>
+        <p><%= truncate(object.get('description').gsub(/<resource_link.*<\/resource_link>/, ''), 300) if object.get('description')%></p>
+</div>

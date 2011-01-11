@@ -1,0 +1,51 @@
+<% @page_title = "#{document_show_html_title} - #{application_name}" %>
+
+<%= render 'constraints', :localized_params=>session[:search] %>
+
+<%# this should be in a partial -%>
+<div class="yui-g">
+	<div class="yui-u first">
+	  <%= render 'previous_next_doc' %>
+  </div>
+	<div class="yui-u">
+		
+	</div>
+</div>
+<% sidebar_items << capture do %>
+  <p><%= link_back_to_catalog %></p>
+<% end %>
+<%# this should be in a partial -%>
+<div id="document">
+  <div id="doc_<%= @document[:id] %>">
+    <div id="document_heading">    
+	<abbr class="unapi-id" style="display: none" title="<%= @document[:id] %>"></abbr>
+      <h1><%= document_heading %> <span class="title_note"><%= "(Video Excerpt)" if @document.get('dc.type') == 'Original footage - excerpt'  and @document.has?('rdf.child.hasModel') and @document.get('rdf.child.hasModel', {:sep => nil}).member?('info:fedora/wgbh:VIDEO')%></span></h1>
+      <% if @document.get('pbcore.description_Editorial_Comments') %>
+        <div class="content-warning">(<%= @document.get('pbcore.description_Editorial_Comments') %>)</div>
+      <% end %>
+    <div id="doc_media"><%= @document.get('rdf.child.hasModel', {:sep => nil}).uniq.map { |e| '<img title="' + ts(e) + '" src="/images/' + e.parameterize + '.gif" />' } if @document.has?('rdf.child.hasModel') %></div>
+    </div>
+    <div class="tools-container"><%= render :partial => 'show_tools' %></div>
+    <div class="document">
+      <%= render_document_partial @document, :show %>
+    </div>
+  </div>
+</div>
+
+<%= render :partial=>'solr_request' %>
+
+<% if @document.marc %>
+  <%= @document.marc.to_zotero(document_partial_name(@document)) %>
+  <div class="lightboxContent" id="citation" style="display:none;">
+    <%= render 'citation' %>
+  </div>
+  <div class="lightboxContent" id="email" style="display:none;">
+    <%= render 'email_form' %>
+  </div>
+  <div class="lightboxContent" id="sms" style="display:none;">
+    <%= render 'sms_form' %>
+  </div>
+  <div class="lightboxContent" id="librarian_view" style="display:none;">
+    <%= render "marc_view" %>	
+  </div>
+<% end %>

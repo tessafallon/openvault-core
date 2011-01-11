@@ -1,0 +1,10 @@
+<% @bookmarks.each do |bookmark| -%>
+<% doc = @documents[bookmark.document_id] -%>
+<%= doc.get('title') %>
+<%= doc.get('description') %>
+<<%= url_for(:action => 'show', :controller => 'catalog', :id => doc[:id], :only_path => false) %>>
+ 
+Citation: <%= doc.send('to_' + params[:style]).gsub('&ldquo;', '"').gsub('&rdquo;', '"').gsub('<u>', '_').gsub('</u>', '_')%>
+--------------------------
+
+<% end %>

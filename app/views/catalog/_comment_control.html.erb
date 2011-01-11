@@ -1,0 +1,29 @@
+<% if current_user %>  
+  <%- @comment ||= Comment.new -%>
+  <% form_remote_for(@comment, {:before => 'if($(".info-fedora_wgbh-video").length > 0) { $("input[name=\'comment[metadata]\']", this).val($.toJSON(get_clip_metadata(this))); } ', :after => 'hide_ugc_forms();'}) do |f| %>        
+	<h2>Annotate</h2>        
+	<p class="hint"></p>
+        <div class="row comment_public">
+                <h3>Privacy Setting</h3>
+                <%= f.radio_button :public, false %>                <%= f.label :public, "Private", :value => 0, :class => 'visible' %>
+                <%= f.radio_button :public, true %>                <%= f.label :public, "Public", :value => 1, :class => 'visible' %>
+        </div>
+    <div class="row">
+                <%= f.label :title %>                <%= f.text_field :title, :title => 'Add a title' %>
+        </div>
+
+        <div class="row">
+                <%= f.label :comment %>
+                <%= f.text_area :comment %>
+        </div>
+
+    <%= f.hidden_field(:document_id, :value => h(document[:id])) %>
+    <%= f.hidden_field(:metadata) %>
+        <div class="action">
+    <%= f.submit 'SAVE', :id => "user_comment_submit_#{document[:id]}" %>
+                <a class="close">Cancel</a>
+        </div>
+  <% end #form %>
+<% else %>
+<% end %>
+

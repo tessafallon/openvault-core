@@ -1,0 +1,7 @@
+<% @user_session ||= UserSession.new %>
+<% form_for @user_session do |f| %>  
+	<h2 class="row">Members login</h2>  
+	<div class="row"><%= f.label :login %> <%= f.text_field :login, :title => 'username' %></div> 
+	<div class="row"><%= f.label :password %> <%= f.password_field :password, :title => 'password' %></div>
+  <div class="row submit"><%= image_submit_tag "/images/search_submit.gif", :value => t(:search_submit), :class=>'submit', :alt=>'Login' %></div>
+<% end %>

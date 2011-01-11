@@ -1,0 +1,38 @@
+<% # container for all documents in index view -%>
+<div id="documents" class="gallery">
+
+  <% # loop thru each doc -%>
+  <% @response.docs.each_with_index do |document,counter| %>
+
+   <% # container for a single doc -%>
+    <div class="document">
+
+      <% # header bar for doc items in index view -%>
+      <div class="documentHeader yui-g">
+
+        <% # list controls for items/docs -%>
+        <div class="yui-u documentFunctions">
+          <%= render :partial=>'bookmark_control', :locals=>{:document=>document} %>
+        </div>      
+         <% # main title container for doc partial view -%>
+
+        <div class="yui-u">
+<div class="thumbnail">
+<img src="<%=Blacklight.fedora_config[:url]%>/get/<%= h document.get(:id) %>/sdef:THUMBNAIL/preview" alt=" " />
+</div>
+	<div  class="viz">
+	<%= link_to '<img title="View Relationship Map BETA" src="/images/viz.png" />', {:controller => 'viz', :action => 'show', :id => document.id}, :target => '_blank' %>
+	</div>
+<h3 class="index_title"><span class="counter"><%= counter + 1 + @response.params[:start].to_i %>.</span> <%= link_to_document document, :label=>document_show_link_field, :counter => (counter + 1 + @response.params[:start].to_i) %> <%= "(Video Excerpt)" if document.get('dc.type') == 'Original footage - excerpt' and document.has?('rdf.child.hasModel') and document.get('rdf.child.hasModel', {:sep => nil}).member?('info:fedora/wgbh:VIDEO')%></h3>
+        </div>
+        
+      </div>
+<div class="detail-overlay">
+<h3 class="index_title_overlay"> <%= link_to_document document, :label=>document_show_link_field, :counter => (counter + 1 + @response.params[:start].to_i) %> <%= "(Video Excerpt)" if document.get('dc.type') == 'Original footage - excerpt'  and document.has?('rdf.child.hasModel') and document.get('rdf.child.hasModel', {:sep => nil}).member?('info:fedora/wgbh:VIDEO')%></h3>
+        <div><%= truncate(document.get('description').gsub(/<resource_link.*<\/resource_link>/, ''), 300) if document.get('description')%></div>
+<%= render :partial=>"catalog/_#{action_name}_partials/popup", :locals=>{:document=>document} %>
+</div>    
+ </div> 
+        <% # main container for doc partial view -%>   
+      <% end %>
+</div>

@@ -1,0 +1,34 @@
+<% # main container for facets/limits menu -%>
+
+<div id="facets" class="facets">
+  <h2 title="Click on topics, people, places, date, media, and/or series to narrow search results."><%= t :facet_title %></h2>
+<% if !params[:f].nil? %>
+  <% p = {:q => params[:q], :fq => []}; facets = params[:f].dup %>
+<%
+if !params[:f]['dc.subject'].nil?
+p[:fq].push 'dc.subject' + ':"' + params[:f]['dc.subject'].first + '"'
+end
+%>
+<ul id="selected-facets">
+<% if params[:f]['dc.subject'].nil? %>
+  <li class="<%= (!params[:q].blank? && params[:q] || 'Your search').parameterize%>"><span class="selected total"><span class="facet-name"><%= !params[:q].blank? && params[:q] ||  'Your search'  %></span> (<span class="hits"><%=results_count p %></span>)</span></li>
+<% end %>
+ <% CGI::unescape(request.query_string).scan(/f\[(.+?)\]\[\]/).flatten.each do |k| %>
+  <% v = facets[k].shift %>
+  <% v =( v.min.to_s + " - " + v.max.to_s )if v.is_a? Range %>
+<% if v.to_s != "" %>
+  <% p[:fq].push k + ':"' + v + '"' %>
+  <li class="<%= (k + " " + v).parameterize %>"><span class="selected"><span class="facet-name"><%=  h(ts(v)) %></span> (<span class="hits"><%=results_count p %></span>)</span>
+<%= link_to '[remove]', remove_facet_params(k, v, params), :class=>'remove' %>
+  </li>
+  <% end %>
+  <% end %>
+</ul>
+
+<% end %>
+  <% facet_field_names.each do |solr_fname| %>
+    <div class="facet facet_limit">
+      <%= render_facet_limit(solr_fname) %>
+    </div>
+  <% end %>
+</div>

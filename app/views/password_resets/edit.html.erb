@@ -1,0 +1,19 @@
+<h1>Change My Password</h1>
+
+<% form_for @user, :url => password_reset_path, :method => :put, :html => {:class => 'aligned-form'} do |f| %>
+  <%= f.error_messages %>
+<div class="row">
+  <%= f.label :login %>
+  <input type="text" disabled="disabled" value="<%= h @user.login %>"></div>
+<div class="row">
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+</div>
+<div class="row">
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %>
+</div>
+<div class="row submit">
+  <%= f.submit "Update my password and log me in" %>
+</div>
+<% end %>

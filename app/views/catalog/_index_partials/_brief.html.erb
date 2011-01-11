@@ -1,0 +1,5 @@
+<div class="mlt">
+<%= link_to_document document, :label=> '<img alt=" " src="' + Blacklight.fedora_config[:url] + '/get/' + h(document.get(:id)) + '/sdef:THUMBNAIL/thumbnail" width="54"/>' %>
+<h4><%= link_to_document document %></h4>
+        <p><%= truncate(document.get('description').gsub(/<resource_link.*<\/resource_link>/, ''), 300) if document.get('description')%></p>
+</div>

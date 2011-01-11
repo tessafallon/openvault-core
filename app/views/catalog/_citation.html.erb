@@ -1,0 +1,25 @@
+       <div class="lightboxTitle"> Cite
+
+	</div>
+<p class="lightboxCaption">Select this citation, then copy to paste into your document.</p>
+
+<div class="citations">
+<% unless @document.to_chicago.blank? %>
+  <h4><%= t :citation_chicago %></h4>
+  <p><%= @document.to_chicago %></p>
+<% end %>
+
+<% unless @document.to_mla.blank? %>
+  <h4><%= t :citation_mla %></h4>
+  <p><%= @document.to_mla %></p>
+<% end %>
+
+<% unless @document.to_apa.blank? %>
+  <h4><%= t :citation_apa %></h4>
+  <p><%= @document.to_apa %></p>
+<% end %>
+
+</div>
+<div class="action">
+<a class="close">Close</a>
+</div>

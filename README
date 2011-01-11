@@ -1,0 +1,54 @@
+This is the core source code behind WGBH Open Vault <http://openvault.wgbh.org>, a media catalog based on Blacklight, Solr, and Fedora. This core is not intended to be an out-of-the-box solution and may take additional work to deploy in other contexts. We would highly recommend looking at Blacklight <http://projectblacklight.org> or Hydra <https://wiki.duraspace.org/display/hydra/The+Hydra+Project> as a starting place for similar functionality, supported by a robust community.
+
+A significant portion of the work and innovation that went into the making of WGBH Open Vault <http://openvault.wgbh.org> has been released as modular Blacklight plugins, simple demonstrators, or contributed back to core projects (such as Blacklight), making it easier for the community to build similar projects. 
+
+Blacklight OAI provider:
+https://github.com/cbeer/blacklight_oai_provider
+
+Blacklight User Generated Content:
+https://github.com/cbeer/blacklight_user_generated_content
+
+Blacklight plugin exposing Solr More-Like-This functionality:
+https://github.com/cbeer/blacklight_mlt
+
+Blacklight plugin exposing Solr Highlighting functionality:
+https://github.com/cbeer/blacklight_highlight_plugin.git
+
+Core Fedora content models used by WGBH Open Vault:
+https://github.com/cbeer/fedora-content-models
+
+Demonstrator of synchronized media and text:
+https://github.com/cbeer/ave
+
+Demonstrator for manually aligning formatted text with media:
+https://github.com/cbeer/ave-sync
+
+Ruby implementation of An Open Digital Rights Language-based Policy Decision Point:
+https://github.com/cbeer/ruby-odrl
+
+If there is something in this code that you believe would be useful in a broader context, feel free to either extract and refine the piece as a new, modular project or file a github issue to express your interest.
+
+---
+
+Deployment instructions go something like this:
+
+echo "gem: --no-ri --no-rdoc" >> ~/.gemrc
+gem install rubygems-update
+update_rubygems
+aptitude update
+yes | aptitude install libmysqlclient-dev libsqlite3-dev ffmpeg
+gem install mysql sqlite3 uuid
+gem install -v=2.3.5 rails
+git clone git@github.com:wgbh/openvault-core.git
+cd openvault
+git submodule init
+git submodule update
+cd vendor/plugins/openvault
+git submodule init
+git submodule update
+cd ../../..
+rake gems:install
+rake db:migrate
+cd hydra-jetty
+java -jar start.jar &
+disown -a

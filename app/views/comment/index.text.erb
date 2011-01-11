@@ -1,0 +1,14 @@
+<% comments_group = @comments.group_by(&:commentable_id) -%>
+<% comments_group.each do |key, comments| -%>
+<% doc = @documents[key] -%>
+<%= doc.get('title') %>
+<<%= url_for(:action => 'show', :controller => 'catalog', :id => key, :only_path => false) %>>
+ 
+Citation: <%= doc.send('to_' + params[:style]).gsub('&ldquo;', '"').gsub('&rdquo;', '"').gsub('<u>', '_').gsub('</u>', '_')%>
+<% comments.each do |object| %>
+<%= object.title %> (<%= object.created_at.strftime('%m/%d/%y') %>)
+<%= object.comment %>
+<% end %>
+--------------------------
+
+<% end %>

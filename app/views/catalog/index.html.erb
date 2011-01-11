@@ -1,0 +1,53 @@
+<% if false and  params[:q].blank? and params[:f].blank? %> 
+       <%# if there are no input/search related params, display the "home" partial -%>    
+    <%= render 'home' %>
+
+<% elsif @response.total == 0 %>
+<% sidebar_items << capture do %>
+<%= render :partial=>'search' %>
+<%= render :partial=>'browse' %>
+<% end %>
+  <%= render 'empty' %>
+<% else %>    
+<% params[:style] = 'table' if params[:style].blank? || params[:style] == ""%>
+    <% @page_title = application_name + " " + t(:search_results) %>   
+             <%= render :partial => 'did_you_mean' %>    
+            <%= render 'constraints', :localized_params=>params %> 
+       <div class="style-selector current-style-<%= h params[:style] %>">     
+           <h3>View as:</h3>              
+  <%= link_to 'List <img src="/images/catalog-index-table.jpg" alt=" " />', document_list_with_style('table'), {:class => ('selected_' + (params[:style] == 'table').to_s) + ' table' } %> 
+               <%= link_to 'Gallery <img src="/images/catalog-index-gallery.jpg" alt=" " />', document_list_with_style('gallery'), {:class => ('selected_' + (params[:style] == 'gallery').to_s) +  ' gallery'} %>       
+ </div>  
+ <h1><%= format_num(@response.total) %> results for <span class="params"> <%= h !params[:q].blank? && params[:q] ||  'your search' %></span></h1>     
+         <div class="index-tools">      
+  <%= render 'results_pagination' %>
+	        <%= render 'sort_and_per_page' %>      
+<%= render :partial => 'index_tools' %>
+ <br class="clear" />        
+</div>      
+  <%                 p = 'document_list'       
+                p = p + '_' + params[:style]
+             %>   
+<% begin %>
+     <%= render :partial=>p %>                
+<% rescue MissingTemplate %>
+<%= render :partial=>'document_list_table' %>                
+<% end %>
+<% sidebar_items << capture do %>
+<% if params[:q].nil? %>
+<%= render :partial=>'search' %>
+<%= render :partial=>'browse' %>
+<% else %>
+<%= render :partial=>'browse' %>
+<%= render :partial=>'search' %>
+<% end %>
+	<%= render :partial=>'facets' %>
+<% end %>
+
+  <%= render 'results_pagination' %>
+
+
+<%= render :partial=>'solr_request' %>
+
+<% end %>
+

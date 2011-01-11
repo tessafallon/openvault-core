@@ -1,0 +1,4 @@
+page.replace_html :notice, flash[:notice]
+page.replace_html 'comment_list', :partial => 'catalog/comment_list', :locals => {:document => @document}
+flash.discard
+page[:new_comment].reset

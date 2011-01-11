@@ -1,0 +1,14 @@
+ <div class="comment" <%= object.segment.to_smil unless object.segment.empty? %>>
+ <div class="comment-title"><a href=""><%= object.title %></a></div>
+ <div class="comment-byline">
+ by <span class="comment-user"><%= object.user.full_name || object.user.login || "Anonymous" %></span>, <span class="comment-created"><%= object.created_at.strftime '%b %d, %Y' %></span>
+<%= "[" + object.segment.to_s + "]" unless object.segment.empty?  %>
+ </div>
+ <div class="comment-body">
+ <%= object.comment %>
+ </div>
+ <span class="comment-clip-in"><%=  object.segment.clip_in unless object.segment.clip_in.nil? %></span>
+ <span class="comment-created-iso8601"><%= object.created_at %></span>
+ <input name="comment_metadata_<%= object.id %>" class='comment-metadata metadata' value='<%= object.metadata %>' />
+ </div>
+

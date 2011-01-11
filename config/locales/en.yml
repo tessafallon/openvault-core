@@ -1,0 +1,94 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  search_results: "Search Results"
+  result_navigation: "Result Navigation"
+
+  document_is_bookmarked: "This item is in your {{folder}}"
+  bookmark_label: "bookmarks"
+  bookmark_this_item: "Save"
+
+  cite_this: "Cite"
+  citation_mla: "MLA"
+  citation_apa: "APA"
+  citation_chicago: "Chicago"
+
+  search_title: "Your searched for:"
+  search_icon_alt: "search icon"
+  search_no_keywords: "No Keywords"
+  search_checkmark_alt: "checkmark"
+  search_showing_items: "Showing {{counter}} of {{total}} items from your search."
+  search_start_over: "Start&nbsp;over&thinsp;"
+
+  did_you_mean: "Did you mean to type"
+
+  email_this: "Email This"
+  email_to_label: "Email:"
+  email_message_label: "Message:"
+  email_send_label: "Send"
+  email_to_invalid: "You must enter a valid email address"
+  email_to_blank: "You must enter a recipient in order to send this message"
+
+  facet_title: "Narrow"
+  facet_remove: "remove"
+  facet_label: "{{value}} ({{hits}})"
+
+  constraints_query_and_facets: "You search for <em>{{query}}</em> limited to"
+  constraints_query: "Your searched for <em<{{query}}</em>"
+  constraints_facets: "Your empty search limited to"
+  constraints_none: "You have no search criteria"
+
+  search_title: "Search"
+  search_in: " in "
+  search_options: "Targeted search options"
+  search_submit: "search"
+
+  refworks_this: "Export to RefWorks"
+  endnote_this: "Export to EndNote"
+
+  sms_this: "SMS This"
+  sms_phone: "Phone Number:"
+  sms_carrier: "Carrier:"
+  sms_submit: "Send"
+  sms_carrier_blank: "You must select a carrier"
+  sms_phone_blank: "You must enter a valid 10 digit phone number"
+
+  show_per_page: "Show {{select}} per page"
+  show_per_page_label: "Number of results to display per page"
+  
+  sort_by: "Sort by "
+  
+  
+  page_entries_info_short: 
+    zero: "No {{name}} found"
+    one: "Displaying <b>1</b> {{name}}"
+    other: "Displaying <b>all {{total}}</b> {{name}}"
+  page_entries_info_paginated: "Displaying {{name}} <b>{{start}} - {{end}}</b> of <b>{{total}}</b>"
+  
+
+  search_field_label_keyword: "Keyword"
+  
+  solrhelper_invalidsolrid: "Sorry, you seem to have encountered an error."
+  rsolr_request_error: "Sorry, I don't understand your search."
+  
+  
+  login_failed: "Login failed. Forgot your username or password? <a href='/users/lost_password'>Click here &gt;</a>"
+
+  "info:fedora/wgbh:VIDEO": "Video"
+  "info:fedora/wgbh:AUDIO": "Audio"
+  "info:fedora/wgbh:LOG": "Transcript"
+  "info:fedora/wgbh:IMAGE": "Still"
+  "info:fedora/wgbh:LOG_NEWSML": "Log"
+
+  org:
+    wgbh:
+      "mla:tocn": "Ten O'Clock News"
+      "mla:ntw": "New Television Workshop"
+      "mla:sbro": "Say Brother"
+      "mla:prpe": "Press and the People"
+      "mla:march": "March on Washington"
+      "mla:wpna": "War and Peace in the Nuclear Age"
+      "mla:vietnam": "The Vietnam Collection"
+      "mla:wgbh_pledge_aug2010": "Pledge Highlights"
+      "mla:pledge": "Pledge Highlights"

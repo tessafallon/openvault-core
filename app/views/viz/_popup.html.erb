@@ -1,0 +1,24 @@
+<%# default partial to display solr document fields in catalog index view -%>
+<div class="detail-overlay">
+<h3 class="index_title_overlay"> <%= link_to document[:title], {:action => 'show', :controller => 'catalog', :id => document[:id]}, {:target => '_parent'} %> <%= "(Video Excerpt)" if document.get('dc.type') == 'Original footage - excerpt'  and document.has?('rdf.child.hasModel') and document.get('rdf.child.hasModel', {:sep => nil}).member?('info:fedora/wgbh:VIDEO')%></h3>
+<div><%= truncate document.get('description').gsub(/<resource_link.*<\/resource_link>/, '') if document.get('description') %></div>
+
+<% if document.has? 'rdf.child.hasModel' %>
+<div>
+  <strong>Media:</strong>
+<%= document.get('rdf.child.hasModel', {:sep => nil}).select { |e| e =~ /wgbh/ }.uniq.sort.map { |e| t(e.parameterize, :default => e.split(':').last.capitalize ) }.join(", ") %>
+</div>
+<% end %>
+
+<input type="hidden" class="id" value="<%= h document.id %>" />
+  <% index_field_names.each do |solr_fname| -%>
+    <% if document.get solr_fname %>
+ <div> 
+        <strong><%= h index_field_labels[solr_fname]%>: </strong>
+        <%= h document.get(solr_fname) %>
+</div>
+    <% end -%>
+  <% end -%>
+
+<br style="clear: both;" />
+</div>

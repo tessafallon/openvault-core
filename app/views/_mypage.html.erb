@@ -1,0 +1,27 @@
+<h2>My Page</h2>
+<!--
+<div id="search-simple">
+	  <% form_tag comments_path, :method=>:get do %>
+	    <%= text_field_tag 'q', params[:q] %>
+    <%= image_submit_tag "/images/search_submit.gif", :value => t(:search_submit), :class=>'submit' %>
+		<% end %>
+</div>
+-->
+<div id="facets">
+<div>
+<h3 class="toggler">Show Only</h3>
+<ul class="mypage-showonly">
+<li><input type="radio" name="showonly" <%= 'checked="checked"' if controller.controller_name == 'bookmarks' %>/><%= link_to 'Saved <b>Records</b> (' + format_num(current_user.bookmarks.length) + ')', bookmarks_path %></li>
+<li><input type="radio" name="showonly" <%= 'checked="checked"' if controller.controller_name == 'comments' %>/><%= link_to '<b>Annotations</b> (' + format_num(current_user.comments.length) + ')', comments_path %></li>
+<li><input type="radio" name="showonly" <%= 'checked="checked"' if controller.controller_name == 'saved_searches' %>/><%= link_to 'Saved <b>Searches</b> (' + format_num(Search.find_all_by_user_id(current_user.id).length) + ')', saved_searches_path %></li>
+</ul>
+</div>
+<!--
+<div>
+<h3 class="toggler">My Tags</h3>
+</div>
+
+-->
+</div>
+	
+	

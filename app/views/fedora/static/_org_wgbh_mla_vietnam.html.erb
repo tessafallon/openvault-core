@@ -1,0 +1,114 @@
+<img class="signature" src="/media/collections/i_vietnam.jpg" />
+<h1>The Vietnam Collection</h1>
+<p class="about"><i>Vietnam: A Television History</i> was a landmark documentary series produced by WGBH. This collection contains most of the materials gathered and created for the 1983 series, as well as additional Vietnam-related materials from the WGBH archive. Vietnam: A Television History was one of the last WGBH series produced entirely on film. Starting in 2008, materials were reconstructed, transferred, and digitized for preservation and access.</p>
+
+<div class="funding">
+<h3>Major funding provided by the Institute of Museum and Library Services.</h3>
+<a href="http://www.imls.gov/index.shtm" target="_blank"><img src="/media/collections/logo_iml.png" /></a>
+</div>
+
+<div class="thanks">
+<h3>Thanks to our project partners</h3>
+            <ul>
+                <li><a target="_blank" href="http://www.umb.edu/">University of Massachusetts Boston</a></li>
+                <li><a target="_blank" href="http://www.joinercenter.umb.edu/">The William Joiner Center of the University of Massachusetts Boston</a></li>
+
+                <li><a target="_blank" href="http://www.columbia.edu/ccnmtl/">Columbia University: Columbia Center for New Media Teaching and Learning</a></li>
+            </ul>
+            <h3>Thanks to</h3>
+            <ul>
+                <li>Footage Courtesy of <a target="_blank" href="http://www.abcnewsvsource.com/">ABCNews</a></li>
+                <li>Footage Courtesy of <a target="_blank" href="http://www.cbsnews.com/">CBS News</a></li>
+                <li>National Boston</li>
+
+            </ul>
+
+</div>
+
+<div class="sidebar">
+<div class="highlights">
+<h3>Highlights</h3>
+<ul>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:7376e451372c8a219648fc8e424aa9a1e8b463a4' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:1f2a0ef5db56a94aaa3915d84ee11b5d72df9fbf' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:6fc1d376bb489a0f8414bca25cfab5f545ce422e' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:f1b35fec863beb654d0e20ddde0bc4f11c1a3f8e' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:348bd4b1ae559bcd90abab7b114328312a4bf800' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'org.wgbh.mla:3600c0d4e6a21ed941bf504c8b3b64d74c306cf2' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'abc-news-videosource:29944' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'abc-news-videosource:41678' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+<li>
+<% response, document = get_solr_response_for_doc_id 'cbs-news:175-874' %>
+<%= render :partial => '/catalog/_index_partials/highlight', :locals => {:document => document} %>
+</li>
+</ul>
+
+</div>
+<script type="text/javascript">
+$('.highlights li').hide();
+
+arr = [0,1,2,3,4,5,6,7,8].sort(function() { return 0.5 - Math.random(); });
+
+$('.highlights li').eq(arr[0]).show();
+$('.highlights li').eq(arr[1]).show();
+$('.highlights li').eq(arr[2]).show();
+$('.highlights li:visible').last().addClass('last');
+</script>
+<div class="related">
+
+<h3>In this collection</h3>
+<ul>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Brdf.ancestor%5D%5B%5D=org.wgbh.mla:vietnam">Search All Materials from this Collection</a></li>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Brdf.ancestor%5D%5B%5D=org.wgbh.mla:vietnam&f%5Btopic%5D%5B%5D=Vietnam+War%2C+1961-1975--Personal+narratives">Search All Interviews</a></li>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Brdf.ancestor%5D%5B%5D=org.wgbh.mla:vietnam&f%5Bdc.type%5D%5B%5D=Stock+footage">Search All News Stories</a></li>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Brdf.ancestor%5D%5B%5D=org.wgbh.mla:vietnam&f%5Brdf.child.hasModel%5D%5B%5D=info:fedora/wgbh:IMAGE">Search All Stills</a></li>
+<li><a href="http://openvault.wgbh.org/catalog?f%5Brdf.ancestor%5D%5B%5D=org.wgbh.mla:vietnam&f%5Bdc.type%5D%5B%5D=Original+footage">Search All Original Footage</a></li>
+</ul>
+<h3>Related Links</h3>
+<ul>
+                        <li><a target="_blank" href="http://www.pbs.org/wgbh/amex/vietnam">American Experience: Vietnam</a></li>
+                        <li><a target="_blank" href="http://www.teachersdomain.org/search/?mode=refined&results_to_show=10&query=%22vietnam+war%22&lower_grade=K&upper_grade=12&media_types=video&media_types=audio&media_types=interactive&media_types=image&media_types=document&media_types=lesson_plan&media_types=student_activity&oer_level=0">Teachers' Domain: Vietnam War</a></li>
+                        <li><a target="_blank" href="http://www.lib.umb.edu/node/1648">UMass Boston Vietnam Finding Aid</a></li>
+                        
+                        <li><a target="_blank" href="http://www.shoppbs.org/product/index.jsp?productId=1817567">Shop PBS</a></li>
+</ul>
+</div>
+</div>
+<style>
+#doc4 {
+  background-color: rgb(225, 222, 211);
+}
+
+.info-fedora-wgbh-collection #document .document h1, .info-fedora-wgbh-collection #document .sidebar h3 {
+  color: #87a4b8;
+}
+
+.highlights h3 {
+	background-image: url(/media/collections/h_high.png);
+
+}
+</style>

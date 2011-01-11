@@ -1,0 +1,2 @@
+class FedoraController < ApplicationController
+end
