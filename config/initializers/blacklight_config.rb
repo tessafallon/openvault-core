@@ -18,11 +18,16 @@
 #
 
 Blacklight.configure(:shared) do |config|
+  SolrDocument.use_extension( Blacklight::Solr::Document::DublinCore)
 
   SolrDocument.field_semantics.merge!(
-    :title => "title_s",
-    :author => "author_display",
-    :language => "language_facet"
+     :title => "title",
+     :description => "description",
+     :date => 'dc.date',
+     :contributor => 'dc.contributor',
+     :coverage => 'place',
+     :type => 'dc.type', 
+     :subject => 'topic'
   )
 
 
@@ -146,7 +151,6 @@ Blacklight.configure(:shared) do |config|
       :admin_email => 'root@localhost'
     },
     :document => {
-      :timestamp => 'timestamp'
     }
   }
 

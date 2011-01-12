@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.collections '/collection/:id', :controller => 'proxy', :action => 'redirect'
 
-  map.oai '/oai', :controller => 'oai', :action => 'index'
+  map.oai '/oai', :controller => 'catalog', :action => 'oai'
   
 #  map.resources :password_resets
   map.resources :password_resets, :only => [ :new, :create, :edit, :update ]
