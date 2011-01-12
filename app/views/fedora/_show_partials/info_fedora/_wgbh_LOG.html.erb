@@ -1,3 +1,4 @@
+<% extra_head_content << '<link rel="alternate" type="application/xml+tei" href="' + Blacklight.fedora_config[:url] + "/get/#{fedora_object}/File" +'" title="TEI">' %>
 <%
 begin
 require 'xml/xslt'

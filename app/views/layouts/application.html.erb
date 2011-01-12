@@ -14,6 +14,7 @@
     <%= javascript_include_tag 'blacklight', 'application', :plugin=>:blacklight %>
     <%= stylesheet_link_tag 'yui', :plugin=>:blacklight, :media=>'all' %>
     <%= stylesheet_link_tag 'application', :media=>'all' %>
+    <%= extra_head_content %>
     <% unless @document.nil? %>
        <link rel="alternate" type="application/xml+oembed" href="http://<%= request.host_with_port %>/api/oembed?format=xml&amp;url=http://<%= request.host_with_port + request.request_uri %>" title="oEmbed Profile" />
        <link rel="alternate" type="application/json+oembed" href="http://<%= request.host_with_port %>/api/oembed?format=json&amp;url=http://<%= request.host_with_port + request.request_uri %>" title="oEmbed Profile (json)" />
